@@ -1,4 +1,4 @@
-{% set version = "0.5.3" %}
+{% set version = "0.5.4" %}
 
 package:
   name: thermofun
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/thermomod/thermofun/archive/v{{ version }}.tar.gz
-  sha256: c1245772cd5b3e98eccfe6cc5b2c9a22dfd3ee94a3549d28d107f51f8ec20777
+  sha256: 04e573beba46e838af4af3194e3427532dcd7a53b7f895c174e3e16afeb52bb8
 
   #git_url: https://dmiron@bitbucket.org/gems4/thermofun.git
   #git_rev: test-17
@@ -15,9 +15,10 @@ source:
   #git_rev: gdmiron-patch-1
 
 build:
-  number: 2
+  number: 0
 #  skip: True  # [py2k or osx or c_compiler == 'toolchain_c']
   skip: true  # [win and vc<14]
+
 requirements:
   build:
     - {{ compiler('cxx') }}
@@ -26,23 +27,27 @@ requirements:
     - cmake
     - ninja  # [win]
     - make   # [unix]
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - pybind11                               # [build_platform != target_platform]
+    - python  # [win or osx]
+    - pip  # [win or osx]
+    - setuptools  # [win or osx]
+    - wheel  # [win or osx]
+
   host:
-    - pybind11
-    - nlohmann_json >=3.7.0
     - python
     - pip
     - setuptools
-    - chemicalfun >=0.1.9
+    - wheel
+    - pybind11
+    - chemicalfun >=0.1.13
     - spdlog
-#    - setuptools =59.7.0
-    - pybind11-abi
+    - nlohmann_json >=3.7.0
+
   run:
     - python
-    - chemicalfun >=0.1.9
+    - chemicalfun >=0.1.13
+    - spdlog
     - nlohmann_json >=3.7.0
+
 test:
   imports:
     - thermofun
