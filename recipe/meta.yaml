@@ -44,6 +44,9 @@ requirements:
 
   run:
     - python
+    - chemicalfun >=0.1.13
+    - spdlog
+    - nlohmann_json >=3.7.0
 
 test:
   imports:
